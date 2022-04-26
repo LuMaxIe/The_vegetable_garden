@@ -3,11 +3,20 @@ exports.getYieldForPlant = (input) => {
 };
 
 exports.getYieldForCrop = (input) => {
-  return input.numCrops * input.crop.yield;
+  let cropYield = input.numCrops * input.crop.yield
+
+  if(input.hasOwnProperty('environmentFactors')) {
+    for (const environmentFactor in input.environmentFactors) {
+      const factorSeverity = input.environmentFactors[environmentFactor]
+      const environmentFactorValue = input.crop.factor[environmentFactor][factorSeverity];
+      if(environmentFactorValue !== 0) cropYield *= (1 + (environmentFactorValue / 100));
+    }
+  }
+  return cropYield
 }
 
 exports.getTotalYield = (input) => {
-  return input.crops.reduce((a, b) => a + (b.crop.yield * b.numCrops), 0);
+  return input.crops.reduce((a, b) => a + (this.getYieldForCrop(b)), 0);
 }
 
 exports.getCostForCrop = (input) => {
