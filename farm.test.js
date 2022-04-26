@@ -2,6 +2,7 @@ const {
     getCostForCrop,
     getRevenueForCrop,
     getProfitForCrop,
+    getTotalProfit
 } = require('./farm.js');
 
 describe('Calculate the total amount of costs for a crop.', () => {
@@ -27,7 +28,9 @@ describe('Calulcate the revenue for a crop', () => {
         crop: corn,
         numCrops: 10,
     };
-    expect(getRevenueForCrop(input)).toBe(30);
+    test('should get correct revenue', () => {
+        expect(getRevenueForCrop(input)).toBe(30);
+    });
 });
 
 describe('Calculate profit for a crop', () => {
@@ -40,5 +43,27 @@ describe('Calculate profit for a crop', () => {
         crop: corn,
         numCrops: 10,
     };
-    expect(getProfitForCrop(input)).toBe(20)
+    test('should get correct profit for single crop', () => {
+        expect(getProfitForCrop(input)).toBe(20);
+    });
+});
+
+describe('Calculate profit for multiple crops', () => {
+    const corn = {
+        name: "corn",
+        salePrice: 3,
+        cost: 1
+    };
+    const pumpkin = {
+        name: "pumpkin",
+        salePrice: 4,
+        cost: 2
+    };
+    const crops = [
+        { crop: corn, numCrops: 5 },
+        { crop: pumpkin, numCrops: 2 },
+    ];
+    test('should get correct profit for more than 1 crop', () => {
+        expect(getTotalProfit({ crops })).toBe(14)
+    });
 })

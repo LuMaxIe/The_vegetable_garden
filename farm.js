@@ -21,3 +21,7 @@ exports.getRevenueForCrop = (input) => {
 exports.getProfitForCrop = (input) => {
   return (this.getRevenueForCrop(input) - this.getCostForCrop(input))
 }
+
+exports.getTotalProfit = (input) => {
+  return input.crops.reduce((a, b) => a + this.getProfitForCrop(b), 0);
+}
