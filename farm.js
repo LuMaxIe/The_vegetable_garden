@@ -14,3 +14,6 @@ exports.getCostForCrop = (input) => {
   return input.numCrops * input.crop.cost;
 }
 
+exports.getRevenueForCrop = (input) => {
+  return input.numCrops * input.crop.salePrice;
+}
