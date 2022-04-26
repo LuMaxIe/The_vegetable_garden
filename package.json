@@ -1,0 +1,23 @@
+{
+  "name": "the_vegetable_garden",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LuMaxIe/The_vegetable_garden.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LuMaxIe/The_vegetable_garden/issues"
+  },
+  "homepage": "https://github.com/LuMaxIe/The_vegetable_garden#readme",
+  "dependencies": {
+    "jest": "^28.0.0"
+  }
+}
