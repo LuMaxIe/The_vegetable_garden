@@ -35,31 +35,3 @@ exports.pumpkin = {
     },
   }
 }
-
-exports.input = {
-  crop: this.corn,
-  numCrops: 10,
-  environmentFactors: {
-    sun: 'low',
-    wind: 'medium'
-  }
-}
-
-exports.cornEnvironmentAdjusted = {
-  name: "corn",
-  yield: 15, // 30 * 0.5 (wind is neglected)
-  salePrice: 3,
-  cost: 1,
-  factor: {
-    sun: {
-        low: -50,
-        medium: 0,
-        high: 50,
-    },
-    wind: {
-        low: 50,
-        medium: 0,
-        high: -50,
-    },
-  },
-};

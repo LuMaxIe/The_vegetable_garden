@@ -1,9 +1,11 @@
+
 exports.getYieldForPlant = (input) => {
   return input.yield
 };
 
 exports.getYieldForCrop = (input) => {
-  let cropYield = input.numCrops * input.crop.yield
+
+  let cropYield = input.numCrops * input.crop.yield;
 
   if(input.hasOwnProperty('environmentFactors')) {
     for (const environmentFactor in input.environmentFactors) {

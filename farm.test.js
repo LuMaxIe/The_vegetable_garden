@@ -1,4 +1,4 @@
-const { corn, pumpkin, cornEnvironmentAdjusted } = require('./testData');
+const { corn, pumpkin } = require('./testData');
 const { 
     getCostForCrop,
     getRevenueForCrop,
@@ -103,19 +103,69 @@ describe('Get correct yield for multiple crops, environmental factors included',
 
 describe('Calculate total revenue for a crop, environment factors included', () => {
     const input = {
-        crop: cornEnvironmentAdjusted,
+        crop: JSON.parse(JSON.stringify(corn)),
         numCrops: 10,
         environmentFactors: {
             sun: 'low',
             wind: 'medium',
         }
     }
+    input.crop.yield = getYieldForCrop(input) / input.numCrops // adjustment because getYieldForCrop calculates the total amount (Yield * numCrops) and we need the value for a for single crop 
+
     test('should calculate the revenue taking yield corrections in consideration.', () => {
-        // Yield = 150 after environment factors
+        // Yield = 15 after environment factors
         // numCrops = 10
         // Price = 3
-        // 150 * 10 * 3
+        // 15 * 10 * 3
         expect(getRevenueForCrop(input)).toBe(450)
     });
 })
 
+describe('Calculate profit for a crop, taking yield corrections in consideration.', () => {
+    const input = {
+        crop: JSON.parse(JSON.stringify(corn)),
+        numCrops: 10,
+        environmentFactors: {
+            sun: 'low',
+            wind: 'medium',
+        }
+    }
+    input.crop.yield = getYieldForCrop(input) / input.numCrops // adjustment because getYieldForCrop calculates the total amount (Yield * numCrops) and we need the value for a for single crop 
+
+    test('should calculate correct profit while taking yield corrections in consideration.', () => {
+        // revenue = 450
+        // cost = -10
+        expect(getProfitForCrop(input)).toBe(440)
+    });
+})
+
+describe('Calculate total profit for multiple crops, taking yield corrections in consideration', () => {
+    const cornInput = {
+        crop: JSON.parse(JSON.stringify(corn)),
+        numCrops: 10,
+        environmentFactors: {
+            sun: 'low',
+            wind: 'medium',
+        }
+    }
+    cornInput.crop.yield = getYieldForCrop(cornInput) / cornInput.numCrops // adjustment because getYieldForCrop calculates the total amount (Yield * numCrops) and we need the value for a for single crop 
+
+    const pumpkinInput = {
+        crop: JSON.parse(JSON.stringify(pumpkin)),
+        numCrops: 10,
+        environmentFactors: {
+            sun: 'low',
+            wind: 'medium',
+        }
+    }
+    pumpkinInput.crop.yield = getYieldForCrop(pumpkinInput) / pumpkinInput.numCrops // adjustment because getYieldForCrop calculates the total amount (Yield * numCrops) and we need the value for a for single crop 
+
+    const crops = [
+        cornInput,
+        pumpkinInput
+    ];
+
+    test('should calculate correct total profit for multiple crops, while taking yield corrections in consideration.', () => {
+        expect(getTotalProfit({ crops })).toBe(900);
+    });
+})
